@@ -1,5 +1,6 @@
 from rest_framework.viewsets import GenericViewSet
 from rest_framework import mixins
+from rest_framework import filters
 
 from tasks.models import Task
 from tasks.serializer import TaskSerializer
@@ -13,3 +14,5 @@ class TaskAPIViewSet(GenericViewSet,
                      mixins.DestroyModelMixin):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ('title', 'description')
